@@ -1,0 +1,20 @@
+{
+  "name": "example",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "drizzle-kit": "^0.20.7",
+    "drizzle-orm": "^0.29.1",
+    "drizzle-relations-generator": "../"
+  },
+  "scripts": {
+    "db:generate": "rm -rf drizzle && drizzle-kit generate:sqlite",
+    "db:generate-rel": "bun run db:generate && drizzle-rel-gen -snapshot=\"drizzle/meta/0000_snapshot.json\" -src=index.ts -module=\"./index\" -outfile=generated.ts"
+  }
+}
