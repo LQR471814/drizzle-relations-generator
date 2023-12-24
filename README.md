@@ -2,6 +2,12 @@
 
 This CLI utility generates drizzle ORM `relations()` code out of foreign key definitions (`.references(() => ...)`), this is useful if you've got a large schema that relies on foreign keys using the `.references(() => ...)` API and still want to use the `db.query` API.
 
+### Install
+
+```bash
+npm install drizzle-relations-generator
+```
+
 ### Usage
 
 ```
@@ -14,6 +20,8 @@ Usage:
 
         -outfile        string  The location to store the generated typescript file.
 ```
+
+Example command:
 
 ```bash
 drizzle-rel-gen \
