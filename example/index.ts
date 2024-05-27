@@ -1,5 +1,5 @@
 import {
-  UpdateDeleteAction,
+  type UpdateDeleteAction,
   foreignKey,
   int,
   primaryKey,
@@ -24,21 +24,21 @@ export const user = sqliteTable("user", {
 export const psUserCourse = sqliteTable(
   "ps_user_course",
   {
-    userEmail: text("userEmail")
+    userEmail: text("user_email")
       .notNull()
       .references(() => user.email, CASCADE_ALL),
-    courseName: text("courseName")
+    courseName: text("course_name")
       .notNull()
       .references(() => psCourse.name, CASCADE_ALL),
 
-    overallGrade: int("overallGrade"),
-    homeworkPasses: int("homeworkPasses"),
+    overallGrade: int("overall_grade"),
+    homeworkPasses: int("homework_passes"),
     tardies: int("tardies"),
     absences: int("tardies"),
-    onDay: text("onDay"),
+    onDay: text("on_day"),
 
     teacher: text("teacher"),
-    teacherEmail: text("teacherEmail"),
+    teacherEmail: text("teacher_email"),
     room: text("room"),
   },
   (table) => ({
@@ -53,14 +53,14 @@ export const psCourse = sqliteTable("ps_course", {
 export const psUserMeeting = sqliteTable(
   "ps_user_meeting",
   {
-    userEmail: text("userEmail")
+    userEmail: text("user_email")
       .notNull()
       .references(() => user.email, CASCADE_ALL),
-    courseName: text("courseName")
+    courseName: text("course_name")
       .notNull()
       .references(() => psCourse.name, CASCADE_ALL),
-    startTime: int("startTime", { mode: "timestamp" }).notNull(),
-    endTime: int("endTime", { mode: "timestamp" }).notNull(),
+    startTime: int("start_time", { mode: "timestamp" }).notNull(),
+    endTime: int("end_time", { mode: "timestamp" }).notNull(),
   },
   (table) => ({
     pk: primaryKey({
@@ -72,7 +72,7 @@ export const psUserMeeting = sqliteTable(
 export const psAssignmentType = sqliteTable(
   "ps_assignment_type",
   {
-    courseName: text("courseName")
+    courseName: text("course_name")
       .notNull()
       .references(() => psCourse.name, CASCADE_ALL),
     name: text("name").notNull(),
@@ -85,11 +85,11 @@ export const psAssignmentType = sqliteTable(
 export const psUserAssignment = sqliteTable(
   "ps_user_assignment",
   {
-    userEmail: text("userEmail")
+    userEmail: text("user_email")
       .notNull()
       .references(() => user.email, CASCADE_ALL),
-    assignmentName: text("assignmentName").notNull(),
-    courseName: text("courseName").notNull(),
+    assignmentName: text("assignment_name").notNull(),
+    courseName: text("course_name").notNull(),
     missing: int("missing", { mode: "boolean" }).notNull(),
     collected: int("collected", { mode: "boolean" }).notNull(),
     scored: real("scored"),
@@ -133,16 +133,16 @@ export const psAssignment = sqliteTable(
 
 export const moodleCourse = sqliteTable("moodle_course", {
   id: text("id").notNull().primaryKey(),
-  courseName: text("courseName").notNull(),
+  courseName: text("course_name").notNull(),
 });
 
 export const moodleUserCourse = sqliteTable(
   "moodle_user_course",
   {
-    courseId: text("courseId")
+    courseId: text("course_id")
       .notNull()
       .references(() => moodleCourse.id, CASCADE_ALL),
-    userEmail: text("userEmail")
+    userEmail: text("user_email")
       .notNull()
       .references(() => user.email, CASCADE_ALL),
     teacher: text("teacher"),
@@ -165,7 +165,7 @@ export const moodlePageCourse = sqliteTable(
   "moodle_page_course",
   {
     url: text("url").notNull(),
-    courseId: text("courseId")
+    courseId: text("course_id")
       .notNull()
       .references(() => moodleCourse.id, CASCADE_ALL),
   },
@@ -178,7 +178,7 @@ export const moodleAssignment = sqliteTable(
   "moodle_assignment",
   {
     name: text("name").notNull(),
-    courseId: text("courseId")
+    courseId: text("course_id")
       .notNull()
       .references(() => moodleCourse.id, CASCADE_ALL),
     description: text("description"),
@@ -197,7 +197,7 @@ export const weightCourse = sqliteTable("weight_course", {
 export const weightCourseAssignmentType = sqliteTable(
   "weight_course_assignment_type",
   {
-    courseName: text("courseName")
+    courseName: text("course_name")
       .notNull()
       .references(() => weightCourse.name, CASCADE_ALL),
     name: text("name").notNull(),

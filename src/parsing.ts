@@ -1,4 +1,4 @@
-import { readFileSync } from "fs";
+import { readFileSync } from "node:fs";
 import { getTableName } from "drizzle-orm";
 import { buildSync } from "esbuild";
 import { relationsFromSnapshot } from "./transform";
@@ -31,6 +31,7 @@ function parseSrc(filepath: string): TableVariableMappings {
   const decoder = new TextDecoder();
   // @ts-expect-error
   globalThis.module = {};
+  // biome-ignore lint/security/noGlobalEval: eval is necessary here
   eval(decoder.decode(loadResult));
 
   const mappings: { variableName: string; tableName: string }[] = [];

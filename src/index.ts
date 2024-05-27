@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { writeFileSync } from "fs";
+import { writeFileSync } from "node:fs";
 import FlagSet, { multiple, string } from "jsflags";
 import { parseNodejs } from "jsflags/node";
 import { parseSnapshot, parseSrcs } from "./parsing";
@@ -14,12 +14,7 @@ const snapshotRef = flags.flag(
 const srcRef = flags.flag(
   multiple(string),
   "src",
-  "The paths to the database schema file. (ex. ./path/to/file.ts)",
-);
-const moduleRef = flags.flag(
-  multiple(string),
-  "module",
-  `The module specifier(s) (ex. "./module/specifier" which would be then used in an import like 'import {} as "./module/specifier"') in the same order as '-src'.`,
+  "The paths to the database schema file. (ex. ./path/to/file.ts), globs are supported.",
 );
 const outfileRef = flags.flag(
   string,

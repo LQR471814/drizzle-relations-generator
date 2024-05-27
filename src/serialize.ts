@@ -1,6 +1,6 @@
 import ts from "typescript";
-import { FileTableVars, TableVariableMappings } from "./parsing";
-import { RelationType, TableRelation } from "./types";
+import type { FileTableVars, TableVariableMappings } from "./parsing";
+import type { RelationType, TableRelation } from "./types";
 
 export function serializeRelations(
   tableRelations: TableRelation[],
